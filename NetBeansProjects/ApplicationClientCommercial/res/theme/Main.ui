@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component type="Form" name="Main" cloudDestinationProperty="Main" title="Hi World" >
+  <component type="Tabs" name="Tabs" cloudDestinationProperty="Tabs" >
+    <custom name="titles" type="java.lang.String" array="true" dimensions="1" >
+      <str>Connexion</str>
+      <str>Commande</str>
+    </custom>
+    <component type="Container" name="Container" tabTitle="Connexion" cloudDestinationProperty="Container" layout="TableLayout" tableLayoutRows="4" tableLayoutColumns="1" >
+      <component type="TextField" name="TextFieldEmail" cloudBoundProperty="text" cloudDestinationProperty="TextFieldEmail" focusable="true" text="" columns="45" >
+      </component>
+      <component type="TextField" name="TextFieldmdp" cloudBoundProperty="text" cloudDestinationProperty="TextFieldmdp" text="" columns="45" >
+      </component>
+      <component type="Button" name="Button" cloudDestinationProperty="Button" text="Connexion" textPosition="2" >
+      </component>
+    </component>
+    <component type="Container" name="Container1" tabTitle="Commande" cloudDestinationProperty="Container1" >
+      <component type="Table" name="Table" cloudDestinationProperty="Table" >
+      </component>
+    </component>
+  </component>
+</component>
