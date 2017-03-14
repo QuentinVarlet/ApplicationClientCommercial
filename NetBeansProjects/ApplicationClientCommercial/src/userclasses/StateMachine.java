@@ -13,7 +13,10 @@ import com.codename1.ui.events.*;
 import com.codename1.ui.table.Table;
 import com.codename1.ui.util.Resources;
 import com.codename1.xml.Element;
+import java.util.Vector;
 import userclasses.util.modele.ModeleDeTableau;
+import static userclasses.util.parser.ParserArbreXML.getLesElementsFils;
+import static userclasses.util.parser.ParserArbreXML.getValeur;
 import userclasses.util.parser.RequetePourArbreXML;
 import userclasses.util.parser.RequetePourTexteBrut;
 
@@ -45,16 +48,70 @@ public class StateMachine extends StateMachineBase {
         requeteRestConnexion = new RequetePourTexteBrut();
         requeteRestCommande = new RequetePourArbreXML();
         //requeteRestExploitation.executer("gc/login/{id}{mdp}");
-        modeleDuTableau   = new ModeleDeTableau("Mes commandes");      
+        modeleDuTableau   = new ModeleDeTableau("Etat", "HT", "TTC","NumCom","RemiseTotale","TVA");      
         tableau = this.findTable();
     
+    }
+    
+    @Override
+    protected void onMain_ButtonAction(Component c, ActionEvent event){
+        super.onMain_ButtonAction(c, event);
+        
+        String email = this.findTextFieldEmail().getText();
+        String mdp = this.findTextFieldmdp().getText();
+        
+        if (!email.equals("") && !mdp.equals("")){
+            
+            requeteRestConnexion.executer("gc/client/"+email+"/"+mdp);
+            cx = requeteRestConnexion.getTexte();
+            
+            System.out.println(cx);
+            //System.out.println(cx);
+            if(!cx.equals("KO")){
+                
+               requeteRestCommande.executer("gc/resumescommande/"+cx);
+               this.eltCommande = requeteRestCommande.getRacine();
+               
+                System.out.println(eltCommande);
+                Vector<Element>  lesElementsCommande  = getLesElementsFils(eltCommande,"dtocommande");
+                tableau.setVisible(true);
+                System.out.println(lesElementsCommande);
+
+                for ( Element elementCom: lesElementsCommande){
+
+                
+
+                    
+                    
+                 
+                    modeleDuTableau.ajouterRangee(
+
+                    getValeur(elementCom,"etatcom"),
+                    getValeur(elementCom,"montantht"),
+                    getValeur(elementCom,"montantttc"),
+                    getValeur(elementCom,"numcom"),
+                    getValeur(elementCom,"remisetotalnet"),
+                    getValeur(elementCom,"totaltva")
+
+
+
+
+
+
+
+                    );
+                }
+             tableau.setModel(modeleDuTableau);
+            }
+            
+        }
+        
     }
     
     /**
      * this method should be used to initialize variables instead of
      * the constructor/class scope to avoid race conditions
      */
-    protected void initVars(Resources res) {
-    }
+   
 
 }
