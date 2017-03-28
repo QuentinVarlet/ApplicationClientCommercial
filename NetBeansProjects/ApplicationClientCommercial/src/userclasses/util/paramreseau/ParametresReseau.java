@@ -4,7 +4,7 @@ package userclasses.util.paramreseau;
 public class ParametresReseau {
      
     private static String ADRESSESERVEUR      = "192.168.43.116";     // DISTANTE OVH  
- // private static String ADRESSESERVEUR      = "172.16.212.182";  // LOCALE   LYCEE
+ // private static String ADRESSESERVEUR      = "172.16.21.27";  // LOCALE   LYCEE
  // private static String ADRESSESERVEUR      = "192.168.1.3";     // LOCALE   AT HOME
     
     
